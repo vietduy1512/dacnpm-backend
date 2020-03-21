@@ -15,6 +15,6 @@ const Sequelize = require('sequelize');
 //   storage: settings.storage
 // });
 
-const sequelize = new Sequelize('postgres://postgres:P@ssw0rd@localhost:5432/testdb')
+const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://postgres:P@ssw0rd@localhost:5432/testdb')
 
 module.exports = sequelize;
