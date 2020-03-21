@@ -5,11 +5,11 @@ const logger = require('morgan');
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('./src/passport');
-const routes = require('./routes');
+const routes = require('./src/routes');
 
 const app = express();
 
-const PORT = process.env.PORT || 8080;
+const PORT = 8080;
 
 const corsOptions = {
   origin: true,
