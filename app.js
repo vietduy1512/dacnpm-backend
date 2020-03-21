@@ -13,7 +13,8 @@ const PORT = process.env.PORT || 8080;
 
 const corsOptions = {
   origin: true,
-  credentials: true
+  credentials: true,
+  
 };
 
 app.use(cors(corsOptions))
@@ -30,7 +31,10 @@ sequelize.sync();
 app.use(session({
   secret: "SeRectKeY@123",
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie : {
+    sameSite: 'none',
+  }
 }))
 
 app.use(passport.initialize())
