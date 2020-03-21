@@ -47,12 +47,12 @@ User.init({
       len: [4,32]
     }
   },
-  fullname: { type: String, defaultValue:'',
+  fullname: { type: DataTypes.STRING, defaultValue:'No',
     validate: {
       len: [0,32]
     }
   },
-  isActive: { type: Boolean, defaultValue: true },
+  isActive: { type: DataTypes.BOOLEAN, defaultValue: true },
   role: {
     type: DataTypes.ENUM(RoleTypes.USER, RoleTypes.ADMIN),
     defaultValue: RoleTypes.USER
