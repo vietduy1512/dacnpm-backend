@@ -8,10 +8,9 @@ exports.register = [
   body('confirmPassword', 'Confirm password is not matched.').custom((value, { req }) => value === req.body.password),
 
   async (req, res, next) => {
-    console.log(req.body)
     const errors = validationResult(req).array();
 
-    let existedUser = await User.findOne({ email: req.body.email });
+    let existedUser = await User.findOne({where: { email: req.body.email }});
     if (existedUser) {
       errors.push({
         msg: 'User is already existed.'
