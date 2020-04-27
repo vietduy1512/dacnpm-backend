@@ -6,8 +6,10 @@ const cors = require('cors');
 const session = require('express-session');
 const passport = require('./src/passport');
 const routes = require('./src/routes');
+const socketio = require('./src/socketio');
 
 const app = express();
+const server = require('http').Server(app);
 
 const PORT = process.env.PORT || 8080;
 
@@ -47,7 +49,8 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 routes(app);
+socketio(server);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
 	console.log(`App listening on PORT: ${PORT}`)
 })
