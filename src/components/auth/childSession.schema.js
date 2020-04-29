@@ -10,7 +10,8 @@ ChildSession.init({
       len: [4,64]
     }
   },
-  socketId: { type: DataTypes.STRING, allowNull: false },
+  childSocketId: { type: DataTypes.STRING, allowNull: false },
+  parentSocketId: { type: DataTypes.STRING, allowNull: true },
 }, {
   sequelize,
   modelName: 'child-session'

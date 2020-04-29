@@ -7,7 +7,7 @@ const {
 exports.getChildLocation = async (req, res) => {
     let childSession = await ChildSession.findOne({where: { parentEmailAddress: req.user.email }});
     if (childSession) {
-        socketio.io.to(childSession.socketId).emit(CHILD_LOCATION_REQUEST);
+        socketio.io.to(childSession.childSocketId).emit(CHILD_LOCATION_REQUEST);
         res.end();
     }
 }

@@ -14,15 +14,15 @@ module.exports = (socket) => {
     if (!existedSession) {
       const newChildSession = new ChildSession({
         parentEmailAddress: parentAddress,
-        socketId: socket.id
+        childSocketId: socket.id
       })
       newChildSession.save().then(childSession => {
-        console.log('Child session save success:' + childSession.socketId);
+        console.log('Child session save success:' + childSession.childSocketId);
       }).catch(error => {
         console.log(error);
       });
-    } else if (existedSession.socketId !== socket.id) {
-      existedSession.socketId = socket.id;
+    } else if (existedSession.childSocketId !== socket.id) {
+      existedSession.childSocketId = socket.id;
       await existedSession.save();
     }
   });
