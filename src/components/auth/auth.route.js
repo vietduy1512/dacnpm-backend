@@ -4,12 +4,12 @@ const controller = require('./auth.controller')
 const validator = require('./auth.validator')
 const passport = require('../../passport')
 
-router.post('/auth/login', passport.authenticate('local'), controller.login);
+router.post('/login', passport.authenticate('local'), controller.login);
 
-router.post('/auth/register', validator.register, controller.register);
+router.post('/register', validator.register, controller.register);
 
-router.post('/auth/logout', controller.logout);
+router.post('/logout', controller.logout);
 
-router.get('/auth/currentUser', controller.currentUser);
+router.get('/currentUser', controller.currentUser);
 
 module.exports = router;

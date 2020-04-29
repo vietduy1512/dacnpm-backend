@@ -48,8 +48,8 @@ app.use(session(sessionOptions))
 app.use(passport.initialize())
 app.use(passport.session())
 
+socketio.connect(server);
 routes(app);
-socketio(server);
 
 server.listen(PORT, () => {
 	console.log(`App listening on PORT: ${PORT}`)

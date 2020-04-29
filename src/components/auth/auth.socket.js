@@ -11,20 +11,19 @@ module.exports = (socket) => {
     }
 
     let existedSession = await ChildSession.findOne({where: { parentEmailAddress: parentAddress }});
-    if (existedSession.socketId !== socket.id) {
+    if (!existedSession) {
+      const newChildSession = new ChildSession({
+        parentEmailAddress: parentAddress,
+        socketId: socket.id
+      })
+      newChildSession.save().then(childSession => {
+        console.log('Child session save success:' + childSession.socketId);
+      }).catch(error => {
+        console.log(error);
+      });
+    } else if (existedSession.socketId !== socket.id) {
       existedSession.socketId = socket.id;
       await existedSession.save();
-      return;
     }
-
-    const newChildSession = new ChildSession({
-      parentEmailAddress: parentAddress,
-      socketId: socket.id
-    })
-    newChildSession.save().then(childSession => {
-      console.log('Child session save success:' + childSession.socketId);
-    }).catch(error => {
-      console.log(error);
-    });
   });
 };

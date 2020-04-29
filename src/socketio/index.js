@@ -1,8 +1,15 @@
-module.exports = (server) => {
-  const io = require('socket.io')(server);
+let socketio = {
+  connect: ()=>{},
+  io: {}
+};
+
+socketio.connect = (server) => {
+  socketio.io = require('socket.io')(server);
   
-  io.on('connection', (socket) => {
+  socketio.io.on('connection', (socket) => {
     require('../components/auth/auth.socket')(socket);
     require('../components/location/location.socket')(socket);
   });
 }
+
+module.exports = socketio;
