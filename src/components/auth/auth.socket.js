@@ -1,15 +1,14 @@
 const {
-  SAVE_PARENT_ADDRES_SESSION,
+  INIT_CHILD_SESSION,
 } = require('../../constants/socket-events');
 const ChildSession = require('./childSession.schema');
 
 module.exports = (socket) => {
-    
-  socket.on(SAVE_PARENT_ADDRES_SESSION, async (parentAddress) => {
+  
+  socket.on(INIT_CHILD_SESSION, async (parentAddress) => {
     if (!parentAddress || parentAddress === '') {
       return;
     }
-
     let existedSession = await ChildSession.findOne({where: { parentEmailAddress: parentAddress }});
     if (!existedSession) {
       const newChildSession = new ChildSession({
