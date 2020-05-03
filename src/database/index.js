@@ -1,20 +1,27 @@
 const Sequelize = require('sequelize');
 
-// const settings = {
-//   host: 'localhost',
-//   username: 'root',
-//   password: '123456',
-//   db: 'testdb',
-//   dialect: 'sqlite',
-//   storage: './database.sqlite'
-// }
+const sequelize = new Sequelize('testdb', 'postgres', 'P@ssw0rd', {
+  host: 'localhost',
+  port: '5432',
+  dialect: 'postgres',
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
+});
 
-// // SQLITE
-// const sequelize = new Sequelize({
-//   dialect: settings.dialect,
-//   storage: settings.storage
-// });
+//const sequelize = new Sequelize('postgres://postgres:P@ssw0rd@localhost:5432/testdb')
 
-const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://postgres:P@ssw0rd@localhost:5432/testdb')
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  })
+  .done();
 
 module.exports = sequelize;
