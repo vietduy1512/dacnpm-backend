@@ -1,18 +1,23 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('testdb', 'postgres', 'P@ssw0rd', {
-  host: 'localhost',
-  port: '5432',
-  dialect: 'postgres',
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
+const sequelize = new Sequelize(
+  process.env.DATABASE || 'testdb',
+  process.env.USERNAME || 'postgres',
+  process.env.PASSWORD || 'P@ssw0rd',
+  {
+    host: process.env.HOST || 'localhost',
+    port: process.env.PORT || '5432',
+    dialect: 'postgres',
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
   }
-});
+);
 
-//const sequelize = new Sequelize('postgres://postgres:P@ssw0rd@localhost:5432/testdb')
+//const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://postgres:P@ssw0rd@localhost:5432/testdb')
 
 sequelize
   .authenticate()
