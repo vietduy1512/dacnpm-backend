@@ -2,11 +2,6 @@ const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../../database');
 const bcrypt = require('bcryptjs');
 
-const RoleTypes = Object.freeze({
-  USER: 'User',
-  ADMIN: 'Admin'
-});
-
 class User extends Model {
 
   static register(user) {
@@ -27,12 +22,6 @@ class User extends Model {
   get url() {
     return '/users/' + this._id;
   }
-  get isAdmin() {
-    return this.role === RoleTypes.ADMIN;
-  }
-  get isUser() {
-    return this.role === RoleTypes.USER;
-  }
 }
 
 User.init({
@@ -52,11 +41,7 @@ User.init({
       len: [0,32]
     }
   },
-  isActive: { type: DataTypes.BOOLEAN, defaultValue: true },
-  role: {
-    type: DataTypes.ENUM(RoleTypes.USER, RoleTypes.ADMIN),
-    defaultValue: RoleTypes.USER
-  }
+  isActive: { type: DataTypes.BOOLEAN, defaultValue: true }
 }, {
   sequelize,
   modelName: 'user'
