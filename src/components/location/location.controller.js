@@ -26,7 +26,6 @@ exports.saveChildLocation = async (req, res) => {
         const newChildLocation = new ChildLocation({
             latitude: req.body.latitude,
             longitude: req.body.longitude,
-            datetime: Date.now()
         })
         await newChildLocation.save();
     } else {
