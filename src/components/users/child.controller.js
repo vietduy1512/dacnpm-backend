@@ -13,6 +13,7 @@ exports.initChild = async (req, res) => {
     if (!child) {
         const newChild = new Child({
             parentId: parent.id,
+            deviceToken: req.body.deviceToken,
             fullname: "SomeChild"
             // TODO: add name
         })

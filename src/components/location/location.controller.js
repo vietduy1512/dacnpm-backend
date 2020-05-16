@@ -3,11 +3,14 @@ const Child = require('../users/child.schema');
 const User = require('../users/user.schema');
 
 exports.getChildLocation = async (req, res) => {
-    let child = await User.findOne({where: { email: req.user.email.trim() }, include: [Child]});
-    if (!child) {
+    let parent = await User.findOne(
+        {where: { email: req.user.email.trim() },
+        include: [{model: Child, as: 'children'}]}
+    );
+    if (!parent) {
         return res.status(400).end();
     }
-
+    let child = parent.children[0];
     let childLocation = await ChildLocation.findOne({where: { childId: child.id }});
     if (childLocation) {
         return res.json(childLocation);
@@ -16,11 +19,14 @@ exports.getChildLocation = async (req, res) => {
 }
 
 exports.saveChildLocation = async (req, res) => {
-    let child = await User.findOne({where: { email: req.body.parentEmailAddress.trim() }, include: [Child]});
-    if (!child) {
+    let parent = await User.findOne(
+        {where: { email: req.user.email.trim() },
+        include: [{model: Child, as: 'children'}]}
+    );
+    if (!parent) {
         return res.status(400).end();
     }
-
+    let child = parent.children[0];
     let childLocation = await ChildLocation.findOne({where: { childId: child.id }});
     if (!childLocation) {
         const newChildLocation = new ChildLocation({
