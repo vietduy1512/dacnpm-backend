@@ -20,7 +20,7 @@ exports.getChildLocation = async (req, res) => {
 
 exports.saveChildLocation = async (req, res) => {
     let parent = await User.findOne({
-        where: { email: req.user.email.trim() },
+        where: { email: req.body.parentEmailAddress.trim() },
         include: [Child]
     });
     if (!parent) {
@@ -30,6 +30,7 @@ exports.saveChildLocation = async (req, res) => {
     let childLocation = await ChildLocation.findOne({where: { childId: child.id }});
     if (!childLocation) {
         const newChildLocation = new ChildLocation({
+            childId: child.id,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
         })
