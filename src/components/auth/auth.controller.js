@@ -30,3 +30,19 @@ exports.logout = (req, res) => {
     res.clearCookie('connect.sid');
     res.end();
 }
+
+exports.generateOTP = (req, res) => {
+    let otp = generateOTP();
+    // TODO Save OTP to db
+    res.json({ token: otp });
+}
+
+function generateOTP() { 
+    const otpLength = 6;
+    var digits = '0123456789'; 
+    let OTP = ''; 
+    for (let i = 0; i < otpLength; i++ ) { 
+        OTP += digits[Math.floor(Math.random() * 10)]; 
+    } 
+    return OTP; 
+} 

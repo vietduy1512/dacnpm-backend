@@ -5,4 +5,6 @@ const auth = require('../../middlewares/auth');
 
 router.get('/getChildLocation', auth.isAuthenticated, controller.getChildLocation);
 
+router.post('/saveChildLocation', controller.saveChildLocation);
+
 module.exports = router;
