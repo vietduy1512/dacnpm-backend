@@ -5,7 +5,7 @@ class ChildLocation extends Model {
 }
 
 ChildLocation.init({
-  childId: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  childId: { type: DataTypes.INTEGER, allowNull: false },
   latitude: { type: DataTypes.DOUBLE, allowNull: true },
   longitude: { type: DataTypes.DOUBLE, allowNull: true },
 }, {
