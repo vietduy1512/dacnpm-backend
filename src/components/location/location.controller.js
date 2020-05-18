@@ -20,7 +20,7 @@ exports.getChildLocation = async (req, res) => {
 
 exports.saveChildLocation = async (req, res) => {
     let parent = await User.findOne({
-        where: { email: req.body.parentEmailAddress.trim() },
+        where: { id: req.body.parentId },
         include: [Child]
     });
     if (!parent) {

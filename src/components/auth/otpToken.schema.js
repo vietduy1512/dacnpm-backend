@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../../database');
+const User = require('../users/user.schema');
 
 class OTPToken extends Model {
 }
@@ -10,6 +11,10 @@ OTPToken.init({
 }, {
   sequelize,
   modelName: 'otp-token'
+});
+
+User.hasOne(OTPToken, {
+  foreignKey: 'parentId'
 });
 
 module.exports = OTPToken;
