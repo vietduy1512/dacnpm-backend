@@ -15,4 +15,6 @@ router.get('/currentUser', controller.currentUser);
 
 router.get('/generateOTP', auth.isAuthenticated, controller.generateOTP);
 
+router.post('/validateOTP', controller.validateOTP);
+
 module.exports = router;

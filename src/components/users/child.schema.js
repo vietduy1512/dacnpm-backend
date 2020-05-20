@@ -8,7 +8,7 @@ class Child extends Model {
 Child.init({
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   parentId: { type: DataTypes.INTEGER, allowNull: false },
-  deviceToken: { type: DataTypes.STRING, allowNull: false },
+  deviceToken: { type: DataTypes.STRING },
   fullname: { type: DataTypes.STRING, defaultValue:'No',
     validate: {
       len: [0,32]

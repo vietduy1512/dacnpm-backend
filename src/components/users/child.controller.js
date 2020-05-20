@@ -3,13 +3,15 @@ const User = require('./user.schema');
 
 exports.initChild = async (req, res) => {
     // TODO: expand to have multiple child
-    // TODO: add OTP + clear invalid child data
-    let parent = await User.findOne({where: { email: req.body.parentEmailAddress.trim() }});
+    // TODO Add otp token expiration
+    let parent = await User.findOne({
+        where: { id: req.body.parentId },
+        include: [Child]
+    });
     if (!parent) {
-        return res.status(400).end(); 
+        return res.status(400).end();
     }
-    
-    let child = await Child.findOne({where: { parentId: parent.id }});
+    let child = parent.children[0];
     if (!child) {
         const newChild = new Child({
             parentId: parent.id,
@@ -19,6 +21,9 @@ exports.initChild = async (req, res) => {
         })
         await newChild.save();
         return res.json({childId: newChild.id});
+    } else {
+        child.deviceToken = req.body.deviceToken
+        await child.save();
+        return res.json({childId: child.id});
     }
-    return res.json({childId: child.id});
 }
