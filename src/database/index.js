@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 // const sequelize = new Sequelize(
-//   process.env.DATABASE || 'testdb',
+//   process.env.DATABASE || 'masterdb',
 //   process.env.USERNAME || 'postgres',
 //   process.env.PASSWORD || 'P@ssw0rd',
 //   {
@@ -17,7 +17,7 @@ const Sequelize = require('sequelize');
 //   }
 // );
 
-const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://postgres:P@ssw0rd@localhost:5432/testdb')
+const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://postgres:P@ssw0rd@localhost:5432/masterdb')
 
 sequelize
   .authenticate()
