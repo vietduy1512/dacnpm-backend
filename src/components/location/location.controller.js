@@ -38,6 +38,7 @@ exports.saveChildLocation = async (req, res) => {
     } else {
         childLocation.latitude = req.body.latitude;
         childLocation.longitude = req.body.longitude;
+        childLocation.changed('updatedAt', true);
         await childLocation.save();
     }
     return res.end();
