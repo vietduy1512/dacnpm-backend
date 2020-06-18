@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('./auth.controller')
-const validator = require('./auth.validator')
-const passport = require('../../passport')
-const auth = require('../../middlewares/auth');
+const validator = require('../../validators/auth/auth.validator')
+const passport = require('@infrastructure/passport')
+const auth = require('@middlewares/auth');
 
 router.post('/login', passport.authenticate('local'), controller.login);
 

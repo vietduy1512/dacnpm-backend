@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../../database');
+const sequelize = require('@infrastructure/database');
 
 class ChildLocation extends Model {
 }

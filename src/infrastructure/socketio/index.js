@@ -8,8 +8,8 @@ socketio.connect = (server) => {
   socketio.io = io;
   
   io.on('connection', (socket) => {
-    require('../components/auth/auth.socket')(socket, io);
-    require('../components/location/location.socket')(socket, io);
+    require('@components/auth/auth.socket')(socket, io);
+    require('@components/location/location.socket')(socket, io);
   });
 }
 
