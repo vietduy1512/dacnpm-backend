@@ -1,5 +1,5 @@
-const User = require('../users/user.schema');
-const OTPToken = require('./otpToken.schema');
+const User = require('../../repositories/users/user.schema');
+const OTPToken = require('../../repositories/auth/otpToken.schema');
 
 exports.currentUser = async (req, res) => {
     if (req.user) {

@@ -1,6 +1,6 @@
-const ChildLocation = require('./childLocation.schema');
-const Child = require('../users/child.schema');
-const User = require('../users/user.schema');
+const ChildLocation = require('../../repositories/location/childLocation.schema');
+const Child = require('../../repositories/users/child.schema');
+const User = require('../../repositories/users/user.schema');
 
 exports.getChildLocation = async (req, res) => {
     let parent = await User.findOne({

@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const sequelize = require("./src/database");
-sequelize.sync({ force: true });
+sequelize.sync();
 
 const sessionOptions = {
   secret: "SeRectKeY@123",

@@ -1,5 +1,5 @@
-const Child = require('./child.schema');
-const User = require('./user.schema');
+const Child = require('../../repositories/users/child.schema');
+const User = require('../../repositories/users/user.schema');
 
 exports.initChild = async (req, res) => {
     // TODO: expand to have multiple child

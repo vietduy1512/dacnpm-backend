@@ -1,6 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../../database');
-const User = require('./user.schema');
+const sequelize = require('../../../database');
+const User = require('../../repositories/users/user.schema');
 
 class Child extends Model {
 }

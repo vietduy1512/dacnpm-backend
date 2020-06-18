@@ -1,5 +1,5 @@
 const { body, validationResult } = require('express-validator');
-const User = require('../users/user.schema');
+const User = require('../../repositories/users/user.schema');
 
 exports.register = [
   body('email', 'Email is invalid.').isEmail(),

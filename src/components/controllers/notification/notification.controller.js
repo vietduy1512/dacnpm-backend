@@ -1,8 +1,8 @@
-const Child = require('../users/child.schema');
-const User = require('../users/user.schema');
+const Child = require('../../repositories/users/child.schema');
+const User = require('../../repositories/users/user.schema');
 
 const admin = require("firebase-admin");
-const serviceAccount = require("../../secrets/serviceAccountKey.json");
+const serviceAccount = require("../../../secrets/serviceAccountKey.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
