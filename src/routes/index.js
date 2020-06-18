@@ -1,8 +1,8 @@
-const indexRouter = require('../components/controllers/home/index.route');
-const authRouter = require('../components/controllers/auth/auth.route');
-const locationRouter = require('../components/controllers/location/location.route');
-const notificationRouter = require('../components/controllers/notification/notification.route');
-const childRouter = require('../components/controllers/users/child.route');
+const indexRouter = require('@components/controllers/home/index.route');
+const authRouter = require('@components/controllers/auth/auth.route');
+const locationRouter = require('@components/controllers/location/location.route');
+const notificationRouter = require('@components/controllers/notification/notification.route');
+const childRouter = require('@components/controllers/users/child.route');
 
 module.exports = (app) => {
   app.use('/', indexRouter);

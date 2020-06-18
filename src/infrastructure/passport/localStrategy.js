@@ -1,4 +1,4 @@
-const User = require('../components/repositories/users/user.schema');
+const User = require('@components/repositories/users/user.schema');
 const LocalStrategy = require('passport-local').Strategy
 
 const strategy = new LocalStrategy(

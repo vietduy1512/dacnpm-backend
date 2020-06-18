@@ -1,12 +1,13 @@
+require('module-alias/register');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const session = require('express-session');
-const passport = require('./src/passport');
-const routes = require('./src/routes');
-const socketio = require('./src/socketio');
+const passport = require('@infrastructure/passport');
+const routes = require('@routes');
+const socketio = require('@infrastructure/socketio');
 
 const app = express();
 const server = require('http').Server(app);
@@ -25,7 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const sequelize = require("./src/database");
+const sequelize = require("@infrastructure/database");
 sequelize.sync();
 
 const sessionOptions = {
