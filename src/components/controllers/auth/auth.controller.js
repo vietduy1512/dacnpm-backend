@@ -5,7 +5,7 @@ exports.currentUser = async (req, res) => {
 }
 
 exports.login = (req, res) => {
-    return authService.login({email: req.user.email}, res);
+    return authService.login({email: req.user.email, deviceToken: req.body.deviceToken}, res);
 }
 
 exports.register = async (req, res) => {

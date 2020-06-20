@@ -41,6 +41,7 @@ User.init({
       len: [0,32]
     }
   },
+  deviceToken: { type: DataTypes.STRING },
   isActive: { type: DataTypes.BOOLEAN, defaultValue: true }
 }, {
   sequelize,

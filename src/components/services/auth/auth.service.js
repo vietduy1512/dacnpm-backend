@@ -9,7 +9,14 @@ exports.currentUser = async ({user}, res) => {
     }
 }
 
-exports.login = ({email}, res) => {
+exports.login = async ({email, deviceToken}, res) => {
+    let parent = await User.findOne({where: { email: email.trim() }});
+    if (!parent) {
+        return res.status(400).end();
+    }
+    parent.deviceToken = deviceToken;
+    console.log(deviceToken);
+    await parent.save()
     res.json({ email: email });
 }
 
