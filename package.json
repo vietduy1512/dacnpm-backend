@@ -4,6 +4,8 @@
   "private": true,
   "_moduleAliases": {
     "@components": "src/components",
+    "@services": "src/components/services",
+    "@DAO": "src/components/DAO",
     "@constants": "src/constants",
     "@infrastructure": "src/infrastructure",
     "@middlewares": "src/middlewares",
