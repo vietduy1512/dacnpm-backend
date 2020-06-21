@@ -1,73 +1,25 @@
-const User = require('../../repositories/users/user.schema');
-const OTPToken = require('../../repositories/auth/otpToken.schema');
+const authService = require('@services/auth/auth.service');
 
 exports.currentUser = async (req, res) => {
-    if (req.user) {
-        res.json({ user: req.user })
-    } else {
-        res.json({ user: null })
-    }
+    return authService.currentUser({user: req.user}, res);
 }
 
 exports.login = (req, res) => {
-    res.json({ email: req.user.email });
+    return authService.login({email: req.user.email, deviceToken: req.body.deviceToken}, res);
 }
 
 exports.register = async (req, res) => {
-    const newUser = new User({
-        email: req.body.email,
-        fullname: req.body.fullname,
-        password: req.body.password
-    })
-    newUser.save().then(user => {
-        return res.json({ email: newUser.email });
-    }).catch(error => {
-        return res.status(400).json({ errors: error.errors });
-    });
+    return authService.register({...req.body}, res);
 }
 
 exports.logout = (req, res) => {
-    req.logout();
-    res.clearCookie('connect.sid');
-    res.end();
+    return authService.logout({logout: req.logout}, res);
 }
 
 exports.generateOTP = async (req, res) => {
-    // TODO Add otp token expiration
-    let parent = await User.findOne({where: { email: req.user.email.trim() }});
-    if (!parent) {
-        return res.status(400).end();
-    }
-
-    let token = generateOTP();
-    let existedOtpToken = await OTPToken.findOne({where: { parentId: parent.id }});
-    if (existedOtpToken) {
-        existedOtpToken.token = token;
-        await existedOtpToken.save()
-    } else {
-        let otpToken = new OTPToken({
-            parentId: parent.id,
-            token: token
-        })
-        await otpToken.save()
-    }
-    res.json({ token: token });
-}
-
-function generateOTP() {
-    const otpLength = 6;
-    var digits = '0123456789';
-    let OTP = '';
-    for (let i = 0; i < otpLength; i++ ) {
-        OTP += digits[Math.floor(Math.random() * 10)];
-    }
-    return OTP;
+    return authService.generateOTP({email: req.user.email}, res);
 }
 
 exports.validateOTP = async (req, res) => {
-    let otpToken = await OTPToken.findOne({where: { token: req.body.token }});
-    if (otpToken) {
-        return res.json({ parentId: otpToken.parentId });
-    }
-    return res.status(400).end();
+    return authService.validateOTP({token:  req.body.token}, res);
 }
