@@ -7,3 +7,7 @@ exports.getChildLocation = async (req, res) => {
 exports.saveChildLocation = async (req, res) => {
     return locationService.saveChildLocation({...req.body}, res);
 }
+
+exports.getChildLocationByDate = async (req, res) => {
+    return locationService.getChildLocationByDate({...req.body}, res);
+}

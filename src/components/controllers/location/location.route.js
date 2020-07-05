@@ -7,4 +7,7 @@ router.get('/getChildLocation', auth.isAuthenticated, controller.getChildLocatio
 
 router.post('/saveChildLocation', controller.saveChildLocation);
 
+router.post('/getChildLocationByDate', auth.isAuthenticated, controller.getChildLocationByDate);
+
+
 module.exports = router;

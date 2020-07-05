@@ -1,6 +1,10 @@
 const ChildLocation = require('@DAO/location/childLocation.schema');
 const Child = require('@DAO/users/child.schema');
 const User = require('@DAO/users/user.schema');
+const { Op } = require("sequelize");
+const { QueryTypes } = require('sequelize');
+const moment = require('moment');
+
 
 exports.getChildLocation = async ({email}, res) => {
     let parent = await User.findOne({
@@ -46,4 +50,29 @@ exports.saveChildLocation = async ({parentId, latitude, longitude}, res) => {
         await newChildLocation.save();
     }
     return res.end();
+}
+
+exports.getChildLocationByDate = async ({email, startDate, toDate}, res) => {
+    let parent = await User.findOne({
+        where: { email: email.trim() },
+        include: [Child]
+    });
+    if (!parent) {
+        return res.status(400).end();
+    }
+    let child = parent.children[0];
+    let childLocations = await ChildLocation.findAll({
+        where: { 
+            childId: child.id,
+            createdAt: {
+                [Op.between]: [new Date(startDate), new Date(toDate ? toDate : moment().toDate())]
+            }
+        }
+    });
+    // const childLocations = await sequelize.query("select * from `child-locations` where `childId` = :child `createdAt`::timestamp::date = :startDate", { type: QueryTypes.SELECT });
+
+    if (childLocations) {
+        return res.json(childLocations);
+    }
+    return res.status(400).end();
 }
