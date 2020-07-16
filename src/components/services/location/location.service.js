@@ -2,7 +2,6 @@ const ChildLocation = require('@DAO/location/childLocation.schema');
 const Child = require('@DAO/users/child.schema');
 const User = require('@DAO/users/user.schema');
 const { Op } = require("sequelize");
-const { QueryTypes } = require('sequelize');
 const moment = require('moment');
 
 
