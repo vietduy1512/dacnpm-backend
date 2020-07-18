@@ -4,7 +4,6 @@ const User = require('@DAO/users/user.schema');
 const { Op } = require("sequelize");
 const moment = require('moment');
 
-
 exports.getChildLocation = async ({email}, res) => {
     let parent = await User.findOne({
         where: { email: email.trim() },
@@ -72,6 +71,57 @@ exports.getChildLocationByDate = async ({email, startDate, toDate}, res) => {
 
     if (childLocations) {
         return res.json(childLocations);
+    }
+    return res.status(400).end();
+}
+
+exports.setCircleFromPoint = async ({email, latitude, longitude, radius}, res) => {
+    console.log(email, latitude, longitude, radius);
+
+    let parent = await User.findOne({
+        where: { email: email.trim() },
+        include: [Child]
+    });
+    if (!parent) {
+        return res.status(400).end();
+    }
+
+    let listPoints = [];
+    const EARTH_RADIUS = 6378100.0; 
+    let lat = latitude * Math.PI / 180.0; 
+    let lon = longitude * Math.PI / 180.0; 
+
+    for (t = 0; t <= Math.PI * 2; t += 0.3) { 
+        // y 
+        latPoint = lat + (radius / EARTH_RADIUS) * Math.sin(t); 
+        // x 
+        lonPoint = lon + (radius / EARTH_RADIUS) * Math.cos(t) / Math.cos(lat);
+
+        // saving the location on circle as a point
+        pointC = {
+            'latC': latPoint * 180.0 / Math.PI,
+            'lonC': lonPoint * 180.0 / Math.PI
+        }
+
+        listPoints.push(pointC);
+    } 
+
+    let child = parent.children[0];
+    let childData = await Child.findOne({where: { id: child.id }});
+
+    if (childData) {
+        childData.update(
+            {
+                circle: listPoints
+            },
+            {
+                where: {
+                    id: child.id
+                }
+            });
+    }
+    if (childData.circle) {
+        return res.json(childData.circle);
     }
     return res.status(400).end();
 }

@@ -9,5 +9,6 @@ router.post('/saveChildLocation', controller.saveChildLocation);
 
 router.post('/getChildLocationByDate', auth.isAuthenticated, controller.getChildLocationByDate);
 
+router.post('/setCircleFromPoint', auth.isAuthenticated, controller.setCircleFromPoint);
 
 module.exports = router;

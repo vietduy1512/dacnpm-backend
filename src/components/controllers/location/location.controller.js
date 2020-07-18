@@ -11,3 +11,8 @@ exports.saveChildLocation = async (req, res) => {
 exports.getChildLocationByDate = async (req, res) => {
     return locationService.getChildLocationByDate({...req.body}, res);
 }
+
+exports.setCircleFromPoint = async (req, res) => {
+    return locationService.setCircleFromPoint({...req.body}, res);
+}
+

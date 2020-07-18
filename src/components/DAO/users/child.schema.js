@@ -14,6 +14,7 @@ Child.init({
       len: [0,32]
     }
   },
+  circle: { type: DataTypes.ARRAY(DataTypes.JSON) }
 }, {
   sequelize,
   modelName: 'child'
