@@ -15,7 +15,6 @@ exports.login = async ({email, deviceToken}, res) => {
         return res.status(400).end();
     }
     parent.deviceToken = deviceToken;
-    console.log(deviceToken);
     await parent.save()
     res.json({ email: email });
 }

@@ -1,12 +1,10 @@
-
-
 module.exports.isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
   } else {
     res.status(401).end();
   }
-}
+};
 
 exports.isAdmin = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -16,7 +14,7 @@ exports.isAdmin = (req, res, next) => {
     }
   }
   res.status(401).end();
-}
+};
 
 exports.isAuthorized = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -27,4 +25,4 @@ exports.isAuthorized = (req, res, next) => {
     }
   }
   res.status(401).end();
-}
+};
